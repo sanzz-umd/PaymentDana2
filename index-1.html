@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bayar via DANA</title>
+  <meta name="description" content="Halaman pembayaran cepat & mudah menggunakan DANA.">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --dana-blue: #118EEA;
+      --dana-light: #E8F4FD;
+      --text-dark: #222;
+      --purple-glow: #9d4edd;
+      --whatsapp-green: #25D366;
+      --telegram-blue: #0088CC;
+    }
+    *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+    body{
+      background: linear-gradient(135deg, #f5f7fa 0%, #e4e1f2 100%);
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow-x:hidden;
+    }
+    .card{
+      width:100%;
+      max-width:420px;
+      background:#fff;
+      border-radius:24px;
+      box-shadow:0 20px 40px rgba(0,0,0,.1), 0 0 30px rgba(157, 78, 221, 0.2);
+      padding:45px 35px;
+      text-align:center;
+      transition:transform .3s, box-shadow .5s;
+      position:relative;
+      overflow:hidden;
+      z-index:1;
+    }
+    .card::before {
+      content:'';
+      position:absolute;
+      top:-50%;
+      left:-50%;
+      width:200%;
+      height:200%;
+      background:radial-gradient(circle, rgba(157,78,221,0.1) 0%, rgba(157,78,221,0) 70%);
+      animation:rotate 15s linear infinite;
+      z-index:-1;
+    }
+    .card:hover{
+      transform:translateY(-8px);
+      box-shadow:0 25px 50px rgba(0,0,0,.15), 0 0 40px rgba(157, 78, 221, 0.3);
+    }
+    .logo{
+      width:100px;
+      margin-bottom:25px;
+      filter:drop-shadow(0 4px 12px rgba(17,142,234,.3));
+      transition:transform .3s;
+    }
+    .card:hover .logo {
+      transform:scale(1.05);
+    }
+    h1{
+      font-size:28px;
+      font-weight:600;
+      color:var(--text-dark);
+      margin-bottom:8px;
+      background:linear-gradient(90deg, #118EEA 0%, #9d4edd 100%);
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+      text-shadow:0 2px 4px rgba(0,0,0,0.05);
+    }
+    .subtitle{
+      font-size:15px;
+      color:#666;
+      margin-bottom:32px;
+      letter-spacing:0.3px;
+    }
+    .dana-number{
+      display:inline-block;
+      background:var(--dana-light);
+      color:var(--dana-blue);
+      padding:12px 22px;
+      border-radius:12px;
+      font-weight:600;
+      font-size:18px;
+      letter-spacing:1px;
+      margin-bottom:30px;
+      box-shadow:0 4px 15px rgba(17,142,234,.15), 0 0 10px rgba(157, 78, 221, 0.2);
+      border:1px solid rgba(157,78,221,0.2);
+      transition:all 0.3s;
+      position:relative;
+      overflow:hidden;
+    }
+    .dana-number::after {
+      content:'';
+      position:absolute;
+      top:-50%;
+      left:-50%;
+      width:200%;
+      height:200%;
+      background:linear-gradient(45deg, transparent, rgba(157,78,221,0.1), transparent);
+      transform:rotate(45deg);
+      animation:shine 3s infinite;
+    }
+    .dana-number:hover {
+      transform:translateY(-2px);
+      box-shadow:0 6px 20px rgba(17,142,234,.2), 0 0 15px rgba(157, 78, 221, 0.3);
+    }
+    .btn-container {
+      display:flex;
+      gap:12px;
+      justify-content:center;
+      margin-bottom:15px;
+      flex-wrap:wrap;
+    }
+    .btn{
+      background:var(--dana-blue);
+      color:#fff;
+      border:none;
+      padding:14px 28px;
+      border-radius:50px;
+      font-size:16px;
+      font-weight:600;
+      cursor:pointer;
+      transition:all .3s;
+      text-decoration:none;
+      display:inline-block;
+      position:relative;
+      overflow:hidden;
+      box-shadow:0 4px 15px rgba(17,142,234,.2);
+    }
+    .btn::after {
+      content:'';
+      position:absolute;
+      top:-50%;
+      left:-50%;
+      width:200%;
+      height:200%;
+      background:linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+      transform:rotate(45deg);
+      animation:shine 3s infinite;
+    }
+    .btn:hover{
+      background:#0f7ad6;
+      transform:translateY(-2px);
+      box-shadow:0 6px 20px rgba(17,142,234,.3);
+    }
+    .btn.purple {
+      background:linear-gradient(90deg, #9d4edd 0%, #7b2cbf 100%);
+      box-shadow:0 4px 15px rgba(157,78,221,.3);
+    }
+    .btn.purple:hover {
+      background:linear-gradient(90deg, #8e3ed1 0%, #6a1b9a 100%);
+      box-shadow:0 6px 20px rgba(157,78,221,.4);
+    }
+    .btn.telegram {
+      background:linear-gradient(90deg, #0088CC 0%, #34AADF 100%);
+      box-shadow:0 4px 15px rgba(0,136,204,.3);
+    }
+    .btn.telegram:hover {
+      background:linear-gradient(90deg, #0077b3 0%, #2a91c4 100%);
+      box-shadow:0 6px 20px rgba(0,136,204,.4);
+    }
+    footer{
+      margin-top:28px;
+      font-size:12px;
+      color:#aaa;
+      position:relative;
+    }
+    footer::before {
+      content:'';
+      position:absolute;
+      top:-15px;
+      left:50%;
+      transform:translateX(-50%);
+      width:50%;
+      height:1px;
+      background:linear-gradient(90deg, transparent, rgba(157,78,221,0.5), transparent);
+    }
+    @keyframes rotate {
+      0% { transform:rotate(0deg); }
+      100% { transform:rotate(360deg); }
+    }
+    @keyframes shine {
+      0% { left:-100%; }
+      20% { left:100%; }
+      100% { left:100%; }
+    }
+    .floating-items {
+      position:absolute;
+      width:100%;
+      height:100%;
+      top:0;
+      left:0;
+      pointer-events:none;
+      z-index:-1;
+      overflow:hidden;
+    }
+    .floating-item {
+      position:absolute;
+      background:rgba(157,78,221,0.1);
+      border-radius:50%;
+      filter:blur(20px);
+    }
+    .proof-section {
+      margin-top:20px;
+    }
+    .proof-title {
+      font-size:14px;
+      color:#666;
+      margin-bottom:12px;
+    }
+    @media(max-width:480px){
+      .card{padding:35px 25px;}
+      .btn-container {
+        flex-direction:column;
+        gap:10px;
+      }
+      .btn {
+        width:100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="floating-items">
+    <div class="floating-item" style="width:150px; height:150px; top:10%; left:10%;"></div>
+    <div class="floating-item" style="width:200px; height:200px; bottom:5%; right:5%;"></div>
+    <div class="floating-item" style="width:100px; height:100px; top:60%; left:20%;"></div>
+  </div>
+
+  <div class="card">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Logo_dana_blue.svg/512px-Logo_dana_blue.svg.png" alt="DANA Logo" class="logo">
+    <h1>Pembayaran Kilat ⚡</h1>
+    <p class="subtitle">Silahkan Salin Nomor Dana NdizzXD</p>
+
+    <div class="dana-number" id="noDana">0852-8549-8100</div>
+
+    <div class="btn-container">
+      <button class="btn" onclick="copyNumber()">Salin Disini!</button>
+      <a href="https://link.dana.id/app/qr?code=085285498100" class="btn purple">Buka DANA</a>
+    </div>
+
+    <div class="proof-section">
+      <p class="proof-title">Kirim Bukti Transfer:</p>
+      <div class="btn-container">
+        <a href="https://t.me/NdizzXD" class="btn telegram">Telegram</a>
+      </div>
+    </div>
+
+    <footer>
+      Thanks Telah Menggunakan Trx Dana NdizzXD
+    </footer>
+  </div>
+
+  <script>
+    function copyNumber() {
+      navigator.clipboard.writeText('085285498100').then(() => {
+        const originalText = document.querySelector('.btn').textContent;
+        document.querySelector('.btn').textContent = 'Tersalin!';
+        setTimeout(() => {
+          document.querySelector('.btn').textContent = originalText;
+        }, 2000);
+      });
+    }
+    
+    // Create additional floating items dynamically
+    document.addEventListener('DOMContentLoaded', function() {
+      const floatingContainer = document.querySelector('.floating-items');
+      for (let i = 0; i < 5; i++) {
+        const item = document.createElement('div');
+        item.className = 'floating-item';
+        const size = Math.random() * 100 + 50;
+        const posX = Math.random() * 100;
+        const posY = Math.random() * 100;
+        const opacity = Math.random() * 0.1 + 0.05;
+        item.style.cssText = `
+          width:${size}px;
+          height:${size}px;
+          top:${posY}%;
+          left:${posX}%;
+          opacity:${opacity};
+          animation:move${i} ${Math.random()*20+10}s infinite alternate;
+        `;
+        
+        const keyframes = `
+          @keyframes move${i} {
+            0% { transform:translate(0, 0); }
+            100% { transform:translate(${Math.random()*100-50}px, ${Math.random()*100-50}px); }
+          }
+        `;
+        
+        const style = document.createElement('style');
+        style.innerHTML = keyframes;
+        document.head.appendChild(style);
+        
+        floatingContainer.appendChild(item);
+      }
+    });
+  </script>
+
+</body>
+</html>
